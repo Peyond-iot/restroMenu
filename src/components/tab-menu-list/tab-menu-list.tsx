@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-
+import './tab-menu-list.css';
 
 function TabMenuList() {
 
@@ -10,8 +10,10 @@ function TabMenuList() {
   const checkForOverflow = () => {
     if (scrollContainerRef.current) {
       const { scrollWidth, clientWidth, scrollLeft } = scrollContainerRef.current;
-      setShowLeftArrow(scrollLeft > 0); // Show left arrow if scrolled away from the start
-      setShowRightArrow(scrollLeft + clientWidth < scrollWidth); // Show right arrow if not scrolled to the end
+      setTimeout(()=>{
+        setShowLeftArrow(scrollLeft > 0); // Show left arrow if scrolled away from the start
+        setShowRightArrow(scrollLeft + clientWidth < scrollWidth); // Show right arrow if not scrolled to the end
+      },500)
     }
   };
 
@@ -40,14 +42,18 @@ function TabMenuList() {
     };
   }, []);
 
+  let handleTouchMove = () =>{
+    setTimeout(checkForOverflow, 100);
+  }
+
   return (
     <div className="overflow-hidden">
         <div className="absolute w-full h-full shadow-header display-none"></div>
-        <div className="w-full left-0 top-full bg-white/40 backdrop-filter-blur z-10 overflow-auto relative flex lg:px-6 justify-center">
+        <div className="w-full left-0 top-full bg-white/40 backdrop-filter-blur z-10 overflow-x-auto relative flex lg:px-6 justify-center">
             {showLeftArrow && (<button className="flex items-center mx-2" onClick={() => scrollTabs('left')}>
                 <img className="w-6 h-6" src="/assets/left-arrow.svg"/>
             </button>)}
-            <div ref={scrollContainerRef} className="overflow-hidden flex px-4">
+            <div ref={scrollContainerRef} className="tabs-container overflow-x-scroll flex px-4" onTouchMove={handleTouchMove}>
                 <ul className="lg:container flex flex-nowrap lg:justify-between gap-4 py-4">
                     <li className="m-0 whitespace-nowrap lg:w-1/5 lg:max-w-[211px] text-primary uppercase border-solid border-b border-primary">
                         <button
