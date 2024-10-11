@@ -13,6 +13,11 @@ module.exports = {
         xl: '1440px',
         '2xl': '1600px',
       },
+    },
+    extend:{
+      boxShadow: {
+        'red': '0 2px 5px rgba(239, 68, 68, 0.2)',  // Custom red shadow
+      },
     }
   },
   plugins: [],

@@ -1,7 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react';
 import './tab-menu-list.css';
+import { scrollTo } from '../cards/cards';
 
-function TabMenuList() {
+interface MenuListProps{
+  data: any;
+}
+
+const TabMenuList: React.FC<MenuListProps> = ({ data }) => {
 
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
@@ -55,54 +60,12 @@ function TabMenuList() {
             </button>)}
             <div ref={scrollContainerRef} className="tabs-container overflow-x-scroll flex px-4" onTouchMove={handleTouchMove}>
                 <ul className="lg:container flex flex-nowrap lg:justify-between gap-4 py-4">
-                    <li className="m-0 whitespace-nowrap lg:w-1/5 lg:max-w-[211px] text-primary uppercase border-solid border-b border-primary">
-                        <button
+                    {data?.map((list: any)=>(<li className="m-0 whitespace-nowrap lg:w-1/5 lg:max-w-[211px] text-primary uppercase border-solid border-b border-primary">
+                        <button onClick={() => scrollTo(list)}
                         className="unset-button hover:text-primary focus:text-primary whitespace-nowrap text-primary uppercase justify-center flex w-full hover:no-underline border-solid border-b-[3px] border-transparent hover:border-primary focus:border-primary">
-                        Starters
+                        {list.title}
                         </button>
-                    </li>
-                    <li className="m-0 whitespace-nowrap lg:w-1/5 lg:max-w-[211px] text-primary uppercase border-solid border-b border-primary">
-                        <button
-                        className="unset-button hover:text-primary focus:text-primary whitespace-nowrap text-primary uppercase justify-center flex w-full hover:no-underline border-solid border-b-[3px] border-transparent hover:border-primary focus:border-primary">
-                        Chinese
-                        </button>
-                    </li>
-                    <li className="m-0 whitespace-nowrap lg:w-1/5 lg:max-w-[211px] text-primary uppercase border-solid border-b border-primary">
-                        <button
-                        className="unset-button hover:text-primary focus:text-primary whitespace-nowrap text-primary uppercase justify-center flex w-full hover:no-underline border-solid border-b-[3px] border-transparent hover:border-primary focus:border-primary">
-                        Main Course
-                        </button>
-                    </li>
-                    <li className="m-0 whitespace-nowrap lg:w-1/5 lg:max-w-[211px] text-primary uppercase border-solid border-b border-primary">
-                        <button
-                        className="unset-button hover:text-primary focus:text-primary whitespace-nowrap text-primary uppercase justify-center flex w-full hover:no-underline border-solid border-b-[3px] border-transparent hover:border-primary focus:border-primary">
-                        Snacks
-                        </button>
-                    </li>
-                    <li className="m-0 whitespace-nowrap lg:w-1/5 lg:max-w-[211px] text-primary uppercase border-solid border-b border-primary">
-                        <button
-                        className="unset-button hover:text-primary focus:text-primary whitespace-nowrap text-primary uppercase justify-center flex w-full hover:no-underline border-solid border-b-[3px] border-transparent hover:border-primary focus:border-primary">
-                        Beverages
-                        </button>
-                    </li>
-                    <li className="m-0 whitespace-nowrap lg:w-1/5 lg:max-w-[211px] text-primary uppercase border-solid border-b border-primary">
-                        <button
-                        className="unset-button hover:text-primary focus:text-primary whitespace-nowrap text-primary uppercase justify-center flex w-full hover:no-underline border-solid border-b-[3px] border-transparent hover:border-primary focus:border-primary">
-                        Desserts
-                        </button>
-                    </li>
-                    <li className="m-0 whitespace-nowrap lg:w-1/5 lg:max-w-[211px] text-primary uppercase border-solid border-b border-primary">
-                        <button
-                        className="unset-button hover:text-primary focus:text-primary whitespace-nowrap text-primary uppercase justify-center flex w-full hover:no-underline border-solid border-b-[3px] border-transparent hover:border-primary focus:border-primary">
-                        Salad
-                        </button>
-                    </li>
-                    <li className="m-0 whitespace-nowrap lg:w-1/5 lg:max-w-[211px] text-primary uppercase border-solid border-b border-primary">
-                        <button
-                        className="unset-button hover:text-primary focus:text-primary whitespace-nowrap text-primary uppercase justify-center flex w-full hover:no-underline border-solid border-b-[3px] border-transparent hover:border-primary focus:border-primary">
-                        Pizza
-                        </button>
-                    </li>
+                    </li>))}
                 </ul>
             </div>
             {showRightArrow && (<button className="flex items-center mx-2" onClick={() => scrollTabs('right')}>

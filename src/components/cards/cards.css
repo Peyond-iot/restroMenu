@@ -1,0 +1,71 @@
+@keyframes slideInBottom {
+    from {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideOutBottom {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+}
+
+@keyframes fadeInZoom {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+  }
+  
+  .fade-in-zoom-animation {
+    width: 60%; /* Set the width to 60% of the screen */
+    max-width: 600px; /* Optional: Set a max-width for larger screens */
+    animation: fadeInZoom 0.4s ease-in-out forwards;
+  }
+
+  .fade-out-animation {
+    animation: fadeOut 0.4s ease-out forwards;
+  }
+
+.slide-in-bottom {
+    animation: slideInBottom 0.5s ease-out forwards;
+}
+
+.slide-out-bottom {
+    animation: slideOutBottom 0.5s ease-in forwards;
+}
+
+.custom-confirm-button {
+  background-color: #EF4444; /* Change this to your desired color */
+  color: white; /* Optional: change text color */
+  border: none; /* Remove default border */
+}
+
+.custom-confirm-button:hover {
+  background-color: #c62828; /* Darker shade for hover effect */
+}
