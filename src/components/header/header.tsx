@@ -28,7 +28,7 @@ function Header() {
 
               <div className="flex items-center">
               <button className={`${windowWidth<380 ? 'mr-0' : 'mr-3'}`}>
-                  <img className="w-6 h-6" src="/assets/cart.svg"/>
+                  <img className="w-6 h-6" alt="cart img" src="/assets/cart.svg"/>
               </button>
             </div>
         </div>
