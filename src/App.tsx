@@ -1,9 +1,11 @@
 import './App.css';
-import MenuList from './pages/menu';
+import MenuList from './pages/menu/menu';
+
+
 
 function App() {
   return (
-    <MenuList/>
+      <MenuList/>
   );
 }
 

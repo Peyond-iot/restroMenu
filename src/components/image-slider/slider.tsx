@@ -7,7 +7,8 @@ interface SliderProps {
     data: any;
   }
   
-  const ImageSlider: React.FC<SliderProps> = ({ data }) => {
+const ImageSlider: React.FC<SliderProps> = ({ data }) => {
+  
     return(
         <Swiper
             spaceBetween={30}
@@ -24,7 +25,7 @@ interface SliderProps {
             modules={[Autoplay, Pagination]}
           className="mySwiper">
             {data?.map((image: any)=>(<SwiperSlide>
-              <img className='mb-4 lg:aspect-[4/5] w-full center rounded-lg aspect-[5/4]' src={image?.src} alt={image?.alt}/>
+              <img className='mb-4 w-full center rounded-lg' src={image?.src} alt={image?.alt}/>
             </SwiperSlide>))}
         </Swiper>
     )
