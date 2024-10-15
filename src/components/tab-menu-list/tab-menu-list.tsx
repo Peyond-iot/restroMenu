@@ -1,55 +1,65 @@
-import React, { useRef, useState, useEffect } from 'react';
-import './tab-menu-list.css';
-import { scrollTo } from '../cards/cards';
+import React, { useRef, useState, useEffect } from "react";
+import "./tab-menu-list.css";
+import { scrollTo } from "../cards/cards";
 
-interface MenuListProps{
+interface MenuListProps {
   data: any;
 }
 
 const TabMenuList: React.FC<MenuListProps> = ({ data }) => {
-
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
 
   const checkForOverflow = () => {
     if (scrollContainerRef.current) {
-      const { scrollWidth, clientWidth, scrollLeft } = scrollContainerRef.current;
-      setTimeout(()=>{
+      const { scrollWidth, clientWidth, scrollLeft } =
+        scrollContainerRef.current;
+      setTimeout(() => {
         setShowLeftArrow(scrollLeft > 0); // Show left arrow if scrolled away from the start
         setShowRightArrow(scrollLeft + clientWidth < scrollWidth); // Show right arrow if not scrolled to the end
-      },500)
+      }, 500);
     }
   };
 
-  const scrollTabs = (direction: 'left' | 'right'): void => {
+  const scrollTabs = (direction: "left" | "right"): void => {
     if (scrollContainerRef.current) {
       const scrollAmount = 200; // Adjust as needed
-      const maxScrollLeft = scrollContainerRef.current.scrollWidth - scrollContainerRef.current.clientWidth;
-      
-      if (direction === 'left' && scrollContainerRef.current.scrollLeft > 0) {
-        scrollContainerRef.current.scrollLeft = Math.max(scrollContainerRef.current.scrollLeft - scrollAmount, 0);
-      } else if (direction === 'right' && scrollContainerRef.current.scrollLeft < maxScrollLeft) {
-        scrollContainerRef.current.scrollLeft = Math.min(scrollContainerRef.current.scrollLeft + scrollAmount, maxScrollLeft);
+      const maxScrollLeft =
+        scrollContainerRef.current.scrollWidth -
+        scrollContainerRef.current.clientWidth;
+
+      if (direction === "left" && scrollContainerRef.current.scrollLeft > 0) {
+        scrollContainerRef.current.scrollLeft = Math.max(
+          scrollContainerRef.current.scrollLeft - scrollAmount,
+          0
+        );
+      } else if (
+        direction === "right" &&
+        scrollContainerRef.current.scrollLeft < maxScrollLeft
+      ) {
+        scrollContainerRef.current.scrollLeft = Math.min(
+          scrollContainerRef.current.scrollLeft + scrollAmount,
+          maxScrollLeft
+        );
       }
     }
     setTimeout(checkForOverflow, 100);
   };
-  
 
   useEffect(() => {
     // Initial check when the component mounts
-    checkForOverflow(); 
+    checkForOverflow();
     // Add a listener for window resize to recheck overflow on resize
-    window.addEventListener('resize', checkForOverflow);
+    window.addEventListener("resize", checkForOverflow);
     return () => {
-      window.removeEventListener('resize', checkForOverflow);
+      window.removeEventListener("resize", checkForOverflow);
     };
   }, []);
 
-  let handleTouchMove = () =>{
+  let handleTouchMove = () => {
     setTimeout(checkForOverflow, 100);
-  }
+  };
 
   return (
     <div className="overflow-hidden">
@@ -72,8 +82,15 @@ const TabMenuList: React.FC<MenuListProps> = ({ data }) => {
                 <img className="w-6 h-6" src="/assets/right-arrow.svg" alt="right"/>
             </button>)}
         </div>
-    </div>
-
+        {showRightArrow && (
+          <button
+            className="flex items-center mx-2"
+            onClick={() => scrollTabs("right")}
+          >
+            <img className="w-6 h-6" src="/assets/right-arrow.svg" />
+          </button>
+        )}
+      </div>
   );
 }
 
