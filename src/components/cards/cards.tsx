@@ -1,12 +1,9 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import PopUp from '../details-popup/details_popup';
 import './cards.css';
 import Rating from '../rating/rating';
-
-
-const MySwal = withReactContent(Swal);
 
 interface CardListProps{
     menuList: any
@@ -27,8 +24,11 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
+
+    const MySwal = withReactContent(Swal);
+
   
-    useEffect(() => {
+    useEffect(() => {      
       // Add the event listener when the component mounts
       window.addEventListener('resize', handleResize);
   
@@ -152,11 +152,11 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
             <div className='lg:container md:container px-2'>
                 {menuList.map((list: any)=>(
                 <div className='mb-12 mt-6'>
-                    {isListed(list.id)&&<h2 id={list.id} className='text-red-500 mb-6 font-bold text-2xl font-mono'>{list.title}</h2>}
+                    {isListed(list.id)&&<h2 id={list.id} className='drop-shadow text-red-500 mb-6 font-bold text-2xl font-mono'>{list.title}</h2>}
                         <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4 md:grid-cols-3 md:container md:gap-4">
-                        {menuData.map(item=>((item.category===list.id) && (<a className="" onClick={() => openModal(item)}>
+                        {menuData.map(item=>((item.category===list.id) && (<div className="" onClick={() => openModal(item)}>
                             <div className="w-full bg-white rounded-lg shadow-red border-red-500 border-1 cursor-pointer">
-                                    <img className="rounded-t-lg mb-4 lg:aspect-[5/4] aspect-[4/5]" src={item.image} alt="product image" />
+                                <img className="rounded-t-lg mb-4 lg:aspect-[5/4] aspect-[4/5]" src={item.image} alt={item.altImage} />
                                 <div className="px-5 pb-5">
                                         <h5 className="text-xl font-semibold tracking-tight">{item.title}</h5>
                                     <div className="flex items-center mt-2.5 mb-2">
@@ -169,7 +169,7 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
                                     </div>
                                 </div>
                             </div>
-                        </a>)))}
+                        </div>)))}
                     </div>
                 </div>
             ))}
