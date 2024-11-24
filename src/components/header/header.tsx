@@ -47,12 +47,12 @@ function Header() {
           <div className="w-full mx-auto flex justify-between items-center">
               <div className="flex items-center">
                 <img src="/assets/breadcrumb.svg" alt="Logo" className="h-6 w-6 cursor-pointer" onClick={() => openModal()}/>
-                <span className="text-red-500 ml-4 font-bold text-2xl font-mono drop-shadow">Restaurant Menu</span>
+                <span className="text-red-500 ml-4 font-bold text-2xl font-mono">Restaurant Menu</span>
                 </div>
 
                 <div className="flex items-center cursor-pointer">
                 <button className={`${windowWidth<380 ? 'mr-0' : 'mr-3'}`} onClick={() => window.location.href = '/cart'}>
-                    <img className="w-6 h-6 drop-shadow" src="/assets/cart.svg" alt="cart"/>
+                    <img className="w-6 h-6" src="/assets/cart.svg" alt="cart"/>
                 </button>
               </div>
           </div>

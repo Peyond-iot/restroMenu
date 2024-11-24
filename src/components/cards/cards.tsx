@@ -152,7 +152,7 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
             <div className='lg:container md:container px-2'>
                 {menuList.map((list: any)=>(
                 <div className='mb-12 mt-6'>
-                    {isListed(list.id)&&<h2 id={list.id} className='drop-shadow text-red-500 mb-6 font-bold text-2xl font-mono'>{list.title}</h2>}
+                    {isListed(list.id)&&<h2 id={list.id} className='text-red-500 mb-6 font-bold text-2xl font-mono'>{list.title}</h2>}
                         <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4 md:grid-cols-3 md:container md:gap-4">
                         {menuData.map(item=>((item.category===list.id) && (<div className="" onClick={() => openModal(item)}>
                             <div className="w-full bg-white rounded-lg shadow-red border-red-500 border-1 cursor-pointer">

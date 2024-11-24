@@ -1,12 +1,21 @@
 import CardList from "../../components/cards/cards";
 import Header from "../../components/header/header";
 import TabMenuList from "../../components/tab-menu-list/tab-menu-list";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Cart from "../cart/cart";
 import PageNotFound from "../page-not-found/page-not-found";
 
+const MenuList = () => {
+  return (
+    <Router>
+      <MainLayout />
+    </Router>
+  );
+};
 
-function MenuList() {
+const MainLayout = () => {
+
+  const location = useLocation();
 
   let menuList = [
     {
@@ -25,19 +34,19 @@ function MenuList() {
   return (
     <div>
       <div className="sticky top-0 bg-white z-50">
-        <Header/>
-        <TabMenuList data={menuList} />
+        {location.pathname !== "/404" &&<Header />}
+        {location.pathname === "/" && <TabMenuList data={menuList} />}
       </div>
       <div>
-        <Router>
-          <div>
-            <Routes>
-              <Route path="/" element={<CardList menuList={menuList} />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="*" element={<PageNotFound />} />
-            </Routes>
-          </div>
-        </Router>
+        <div>
+          <Routes>
+            <Route path="/" element={<CardList menuList={menuList} />} />
+            <Route path="/cart" element={<Cart menuList={menuList} />} />
+            <Route path="/404" element={<PageNotFound />} />
+            {/* Redirect all unknown paths to /404 */}
+            <Route path="*" element={<Navigate to="/404" replace />} />
+          </Routes>
+        </div>
       </div>
     </div>
   );
