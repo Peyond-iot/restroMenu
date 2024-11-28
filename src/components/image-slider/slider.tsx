@@ -25,7 +25,7 @@ const ImageSlider: React.FC<SliderProps> = ({ data }) => {
             modules={[Autoplay, Pagination]}
           className="mySwiper">
             {data?.map((image: any)=>(<SwiperSlide>
-              <img className='mb-4 w-full center rounded-lg' src={image?.src} alt={image?.alt}/>
+              <img className='mb-4 w-full h-[18vh] lg:h-[30vh] center rounded-lg' src={image?.src} alt={image?.alt}/>
             </SwiperSlide>))}
         </Swiper>
     )

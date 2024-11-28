@@ -43,8 +43,8 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
             title: "",
             html: <PopUp data={data}/>, // Render your component here
             position: windowWidth<768? 'bottom': 'center',
-            showCancelButton: true,
-            showConfirmButton: true,
+            showCancelButton: false,
+            showConfirmButton: false,
             confirmButtonText: 'Add to Cart',
             cancelButtonText: 'Cancel',
             allowOutsideClick: false,
@@ -84,6 +84,7 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
                 {src: '', id: '', alt:''},
                 {src: '', id: '', alt:''},
             ],
+            spicy_prefer: true
         },
         {
             image: 'https://imgs.search.brave.com/Y5no7pFf-N_okNdQVQFhNrWrJRtons1etEeTqEjMT5Y/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9pbmRpYW4taGlu/ZHUtdmVnLXRoYWxp/LW5vcnRoLWluZGlh/bi10cmFkaXRpb24t/Zm9vZHMtY29weS1z/cGFjZS00ay1pbWFn/ZS1mb290YWdlLWlz/b2xhdGVkLXdpdGhf/NjYwMjMwLTI3NTAw/LmpwZw',
@@ -101,6 +102,7 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
                 {src: '', id: '', alt:''},
                 {src: '', id: '', alt:''},
             ],
+            spicy_prefer: false
         },
         {
             image: 'https://files.oaiusercontent.com/file-GcpxOMi27BlY2UfZzN6j9V2Q?se=2024-10-10T15%3A00%3A33Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Dc57acda6-3a6c-4106-b2fb-f0af9e6e29a2.webp&sig=NqY4G5Lry5dljKTFl5bF6SjHpw1FXkxL2vwtFPrWcVs%3D',
@@ -118,6 +120,7 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
                 {src: 'https://images.deepai.org/art-image/77e21ba9d64b4522a294e7641ae03ae4/3-image-of-chowmein-with-white-background-7f0_HJ4cNGM.jpg', id: '2', alt:'chowmein2'},
                 {src: 'https://images.deepai.org/art-image/2585c04d45a341c2859353c62379af4a/3-image-of-chowmein-with-white-background-a7c_r7DC4eO.jpg', id: '3', alt:'chowmein3'},
             ],
+            spicy_prefer: true
         },
         {
             image: 'https://files.oaiusercontent.com/file-Le44TZliRHnO5xsJxiVZzDgA?se=2024-10-10T14%3A55%3A53Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Df25fb74b-e0bb-49f3-b09c-723599b4355d.webp&sig=A%2BwjmaNeSoaK9mradR9rKQ2AMG7X5lYANa4R4VizIIw%3D',
@@ -127,7 +130,7 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
             category: 'chinese',
             type: 'non-veg',
             disclaimer: 'some disclaimer like quantity, serves to nuber of people',
-            rating: 4,
+            rating: 2.5,
             price: 150,
             currency: 'Rs.',
             imageSlider:[
@@ -135,6 +138,7 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
                 {src: '', id: '', alt:''},
                 {src: '', id: '', alt:''},
             ],
+            spicy_prefer: true
         }
     ]
 
