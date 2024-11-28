@@ -34,7 +34,7 @@ const MainLayout = () => {
   return (
     <div>
       <div className="sticky top-0 bg-white z-50">
-        {location.pathname !== "/404" &&<Header />}
+        {location.pathname !== "/404" &&<Header cart_length={null}/>}
         {location.pathname === "/" && <TabMenuList data={menuList} />}
       </div>
       <div>
