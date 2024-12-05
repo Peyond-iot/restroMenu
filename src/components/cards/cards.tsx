@@ -4,6 +4,7 @@ import withReactContent from 'sweetalert2-react-content';
 import PopUp from '../details-popup/details_popup';
 import './cards.css';
 import Rating from '../rating/rating';
+import FooterPopup from '../footerPopup/footerPopup';
 
 interface CardListProps{
     menuList: any
@@ -27,10 +28,32 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
 
     const MySwal = withReactContent(Swal);
 
+    const sessionData = sessionStorage.getItem('cartData');
+    const parsedData = sessionData ? JSON.parse(sessionData) : []; // Fallback to empty array
+
   
     useEffect(() => {      
       // Add the event listener when the component mounts
       window.addEventListener('resize', handleResize);
+
+      if(parsedData.length>0){
+        MySwal.fire({
+            title: "",
+            html: <FooterPopup/>, // Render your component here
+            position: 'bottom',
+            showCancelButton: false,
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            showCloseButton: false,
+            backdrop: false,
+            didOpen: () => {
+            const popup = document.querySelector('.swal2-container');
+            if (popup) {
+                popup.setAttribute('id', 'added-popup'); // Assign your custom ID
+            }
+            },
+        })
+      }
   
       // Clean up the event listener when the component unmounts
       return () => {
@@ -39,14 +62,15 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
   });
 
     let openModal = (data: any) =>{
+
+        const isDataMatched = parsedData.some((item: any) => item.title === data.title) || null;
+        const dataToShow = parsedData?.filter((item: any)=>item.title === data.title);
         MySwal.fire({
             title: "",
-            html: <PopUp data={data}/>, // Render your component here
+            html: <PopUp data={isDataMatched? dataToShow[0] : data}/>, // Render your component here
             position: windowWidth<768? 'bottom': 'center',
             showCancelButton: false,
             showConfirmButton: false,
-            confirmButtonText: 'Add to Cart',
-            cancelButtonText: 'Cancel',
             allowOutsideClick: false,
             showCloseButton: true,
             backdrop: true,
@@ -78,7 +102,7 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
             disclaimer: 'some disclaimer like quantity, serves to nuber of people',
             rating: 3.5,
             price: 250,
-            currency: 'Rs.',
+            currency: 'रु.',
             imageSlider:[
                 {src: '', id: '', alt:''},
                 {src: '', id: '', alt:''},
@@ -96,7 +120,7 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
             disclaimer: 'some disclaimer like quantity, serves to nuber of people',
             rating: 4.5,
             price: 350,
-            currency: 'Rs.',
+            currency: 'रु.',
             imageSlider:[
                 {src: '', id: '', alt:''},
                 {src: '', id: '', alt:''},
@@ -114,7 +138,7 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
             disclaimer: 'Serves-1/2',
             rating: 4,
             price: 150,
-            currency: 'Rs.',
+            currency: 'रु.',
             imageSlider:[
                 {src: 'https://api.deepai.org/job-view-file/d7c6f3c7-da2d-47aa-9d24-b6d2e6d62c19/outputs/output.jpg?art-image=true', id: '1', alt:'chowmein1'},
                 {src: 'https://images.deepai.org/art-image/77e21ba9d64b4522a294e7641ae03ae4/3-image-of-chowmein-with-white-background-7f0_HJ4cNGM.jpg', id: '2', alt:'chowmein2'},
@@ -132,7 +156,7 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
             disclaimer: 'some disclaimer like quantity, serves to nuber of people',
             rating: 2.5,
             price: 150,
-            currency: 'Rs.',
+            currency: 'रु.',
             imageSlider:[
                 {src: '', id: '', alt:''},
                 {src: '', id: '', alt:''},
@@ -152,7 +176,7 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
     }
    
     return (
-        <div>
+        <div className='pb-6 lg:pb-0'>
             <div className='lg:container md:container px-2'>
                 {menuList.map((list: any)=>(
                 <div className='mb-12 mt-6'>
@@ -169,7 +193,7 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
                                         </div>
                                     </div>
                                     <div className="flex items-center justify-between">
-                                    <span className="text-2xl font-bold">{item.currency}{item.price}</span>
+                                    <span className="text-xl font-bold">{item.currency}{item.price}</span>
                                     </div>
                                 </div>
                             </div>

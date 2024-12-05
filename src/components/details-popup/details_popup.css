@@ -1,0 +1,14 @@
+#added-popup.swal2-container {
+    padding: 0 !important;
+}
+  
+body.swal2-no-backdrop .swal2-container .swal2-modal {
+    background-color: #E44444;
+    padding: 0;
+}
+
+#added-popup.swal2-container .swal2-html-container{
+    padding: .3em 1.6em .3em;
+    position: fixed;
+    position: sticky;
+}

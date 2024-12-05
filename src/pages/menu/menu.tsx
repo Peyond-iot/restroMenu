@@ -1,11 +1,17 @@
 import CardList from "../../components/cards/cards";
-import Header from "../../components/header/header";
+import Header, { cart_Data } from "../../components/header/header";
 import TabMenuList from "../../components/tab-menu-list/tab-menu-list";
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Cart from "../cart/cart";
 import PageNotFound from "../page-not-found/page-not-found";
 
 const MenuList = () => {
+
+  const sessionData = sessionStorage.getItem('cartData');
+  const parsedData = sessionData ? JSON.parse(sessionData) : []; // Fallback to empty array
+
+  cart_Data(parsedData)
+  
   return (
     <Router>
       <MainLayout />
@@ -34,7 +40,7 @@ const MainLayout = () => {
   return (
     <div>
       <div className="sticky top-0 bg-white z-50">
-        {location.pathname !== "/404" &&<Header cart_length={null}/>}
+        {location.pathname !== "/404" &&<Header/>}
         {location.pathname === "/" && <TabMenuList data={menuList} />}
       </div>
       <div>
