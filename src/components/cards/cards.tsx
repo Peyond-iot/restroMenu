@@ -28,13 +28,12 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
 
     const MySwal = withReactContent(Swal);
 
-    const sessionData = sessionStorage.getItem('cartData');
-    const parsedData = sessionData ? JSON.parse(sessionData) : []; // Fallback to empty array
-
   
     useEffect(() => {      
       // Add the event listener when the component mounts
       window.addEventListener('resize', handleResize);
+      const sessionData = sessionStorage.getItem('cartData');
+      const parsedData = sessionData ? JSON.parse(sessionData) : []; // Fallback to empty array
 
       if(parsedData.length>0){
         MySwal.fire({
@@ -63,8 +62,13 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
 
     let openModal = (data: any) =>{
 
+        const sessionData = sessionStorage.getItem('cartData');
+        const parsedData = sessionData ? JSON.parse(sessionData) : []; // Fallback to empty array
+
+
         const isDataMatched = parsedData.some((item: any) => item.title === data.title) || null;
         const dataToShow = parsedData?.filter((item: any)=>item.title === data.title);
+        const numberInCart:number = parsedData?.length;
         MySwal.fire({
             title: "",
             html: <PopUp data={isDataMatched? dataToShow[0] : data}/>, // Render your component here
@@ -87,6 +91,25 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
                 
                 windowWidth<768? document?.querySelector('.swal2-popup')?.classList?.add('slide-out-bottom'):
                 document?.querySelector('.swal2-popup')?.classList?.add('fade-out-animation');
+
+                if(numberInCart>0){
+                    MySwal.fire({
+                      title: "",
+                      html: <FooterPopup/>, // Render your component here
+                      position: 'bottom',
+                      showCancelButton: false,
+                      showConfirmButton: false,
+                      allowOutsideClick: false,
+                      showCloseButton: false,
+                      backdrop: false,
+                      didOpen: () => {
+                      const popup = document.querySelector('.swal2-container');
+                      if (popup) {
+                          popup.setAttribute('id', 'added-popup'); // Assign your custom ID
+                      }
+                      },
+                    })
+                }
             },
         })
     }
