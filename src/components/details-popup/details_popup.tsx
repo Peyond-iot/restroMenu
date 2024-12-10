@@ -69,6 +69,31 @@ const PopUp: React.FC<PopUpProps> = ({ data }) => {
         const updatedData = [...prevCartData, newItem];
         sessionStorage.setItem('cartData', JSON.stringify(updatedData)); // Persist updated cart in sessionStorage
         cart_Data(updatedData);
+
+        Swal.close(); // This will use the updated cartData
+
+        const sessionData = sessionStorage.getItem('cartData');
+        const parsedData = sessionData ? JSON.parse(sessionData) : [];
+
+        const numberInCart:number = parsedData?.length;
+        if(numberInCart>0){
+          MySwal.fire({
+            title: "",
+            html: <FooterPopup/>, // Render your component here
+            position: 'bottom',
+            showCancelButton: false,
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            showCloseButton: false,
+            backdrop: false,
+            didOpen: () => {
+            const popup = document.querySelector('.swal2-container');
+            if (popup) {
+                popup.setAttribute('id', 'added-popup'); // Assign your custom ID
+            }
+            },
+          })
+        }
         return updatedData;
       });
     } else {
@@ -86,33 +111,33 @@ const PopUp: React.FC<PopUpProps> = ({ data }) => {
         );
         sessionStorage.setItem('cartData', JSON.stringify(updatedData));
         cart_Data(updatedData);
+
+        Swal.close(); // This will use the updated cartData
+
+        const sessionData = sessionStorage.getItem('cartData');
+        const parsedData = sessionData ? JSON.parse(sessionData) : [];
+
+        const numberInCart:number = parsedData?.length;
+        if(numberInCart>0){
+          MySwal.fire({
+            title: "",
+            html: <FooterPopup/>, // Render your component here
+            position: 'bottom',
+            showCancelButton: false,
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            showCloseButton: false,
+            backdrop: false,
+            didOpen: () => {
+            const popup = document.querySelector('.swal2-container');
+            if (popup) {
+                popup.setAttribute('id', 'added-popup'); // Assign your custom ID
+            }
+            },
+          })
+        }
         return updatedData;
       });
-    }
-
-    Swal.close(); // This will use the updated cartData
-
-    const sessionData = sessionStorage.getItem('cartData');
-    const parsedData = sessionData ? JSON.parse(sessionData) : [];
-
-    const numberInCart:number = parsedData?.length;
-    if(numberInCart>0){
-      MySwal.fire({
-        title: "",
-        html: <FooterPopup/>, // Render your component here
-        position: 'bottom',
-        showCancelButton: false,
-        showConfirmButton: false,
-        allowOutsideClick: false,
-        showCloseButton: false,
-        backdrop: false,
-        didOpen: () => {
-        const popup = document.querySelector('.swal2-container');
-        if (popup) {
-            popup.setAttribute('id', 'added-popup'); // Assign your custom ID
-        }
-        },
-      })
     }
   };
 

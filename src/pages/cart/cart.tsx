@@ -13,28 +13,12 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
   const parsedData = sessionData ? JSON.parse(sessionData) : []; // Fallback to empty array
 
   const cartData = parsedData;
-
-    
-  const [counters, setCounters] = useState<Record<string, number>>(() =>
-    cartData.reduce((acc: any, item: any) => ({ ...acc, [item.category]: 1 }), {})
-  );
-
-  const handleIncrease = (id: any) => {
-    setCounters((prev: any) => ({ ...prev, [id]: prev[id] + 1 }));
-  };
-
-  const handleDecrease = (id: any) => {
-    setCounters((prev: any) => ({
-      ...prev,
-      [id]: prev[id] > 1 ? prev[id] - 1 : 1,
-    }));
-  };
   
 
     let isListed = (id:any): boolean =>{
       const listed = cartData.some((item: any) => id === item.category);
       totalItem = cartData.length;
-      totalAmount = cartData.reduce((sum: any, item: any) => sum + item.price, 0);
+      totalAmount = cartData.reduce((sum: any, item: any) => sum + item.priceUpdated, 0);
       if(listed){
           return true
       }else{
@@ -63,7 +47,7 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
                           <h2 className="text-[23px] lg:text-[25px] leading-[26px] lg:leading-normal font-mono text text-red-500">
                             {item.title}
                           </h2>
-                          <span className="text-2xl font-bold">Rs. 250</span>
+                          <span className="text-2xl font-bold">{item.priceUpdated}</span>
                           <div className="w-full text-gray-400 text-base leading-relaxed lg:mb-4">
                             {item.disclaimer}
                           </div>
@@ -72,7 +56,6 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
                         <div className="flex items-center space-x-2">
                           <button
                             className="text-2xl font-bold text-gray-700 px-2"
-                            onClick={() => handleDecrease(item.category)}
                           >
                             <img
                               className="w-20 h-20"
@@ -81,11 +64,10 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
                             />
                           </button>
                           <span className="text-xl font-semibold">
-                            {counters[item.category]}
+                            {item.count}
                           </span>
                           <button
                             className="text-2xl font-bold text-gray-700 px-2"
-                            onClick={() => handleIncrease(item.category)}
                           >
                             <img
                               className="w-20 h-20"
