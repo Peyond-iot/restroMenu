@@ -48,6 +48,7 @@ const MainLayout = () => {
           <Routes>
             <Route path="/" element={<CardList menuList={menuList} />} />
             <Route path="/cart" element={<Cart menuList={menuList} />} />
+            <Route path="/ordered"/>
             <Route path="/404" element={<PageNotFound />} />
             {/* Redirect all unknown paths to /404 */}
             <Route path="*" element={<Navigate to="/404" replace />} />
