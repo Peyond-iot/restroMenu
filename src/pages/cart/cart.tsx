@@ -79,6 +79,12 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
       orderPlaced = cartData;
     }
 
+    // Add `status: 'confirmed'` to each item
+    orderPlaced = orderPlaced.map((item: any) => ({
+      ...item,
+      status: 'confirmed',
+    }));
+
     sessionStorage.setItem('placedOrder', JSON.stringify(orderPlaced));
     sessionStorage.removeItem('cartData');
   };  
@@ -111,31 +117,31 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
                           </div>
                         </div>
                         <div className="w-[40%] flex items-center justify-center">
-                        <div className="flex items-center space-x-2">
-                          <button
-                            className="text-2xl font-bold text-gray-700 px-2"
-                            onClick={()=>handleDecrease(item?.title)}
-                          >
-                            <img
-                              className="w-20 h-20"
-                              src="/assets/minus.svg"
-                              alt="decrease"
-                            />
-                          </button>
-                          <span className="text-xl font-semibold">
-                            {item.count}
-                          </span>
-                          <button
-                            className="text-2xl font-bold text-gray-700 px-2"
-                            onClick={()=>handleIncrease(item?.title)}
-                          >
-                            <img
-                              className="w-20 h-20"
-                              src="/assets/plus.svg"
-                              alt="increase"
-                            />
-                          </button>
-                        </div>
+                          <div className="flex items-center space-x-2">
+                            <button
+                              className="text-2xl font-bold text-gray-700 px-2"
+                              onClick={()=>handleDecrease(item?.title)}
+                            >
+                              <img
+                                className="w-20 h-20"
+                                src="/assets/minus.svg"
+                                alt="decrease"
+                              />
+                            </button>
+                            <span className="text-xl font-semibold">
+                              {item.count}
+                            </span>
+                            <button
+                              className="text-2xl font-bold text-gray-700 px-2"
+                              onClick={()=>handleIncrease(item?.title)}
+                            >
+                              <img
+                                className="w-20 h-20"
+                                src="/assets/plus.svg"
+                                alt="increase"
+                              />
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -194,10 +200,15 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
 
               {/* <!-- Right Section --> */}
               <div className="w-[60%] flex justify-end">
-                <button className="bg-red-500 text-white font-semibold text-lg py-3 px-6 rounded-lg shadow hover:bg-red-600" onClick={()=>{
-                  OrderPlaced();
-                  window.location.href = '/ordered'}}>
-                  Place Order
+                <button 
+                  onClick={() => {
+                    OrderPlaced();
+                    window.location.href = '/ordered'
+                  }}
+                  className="w-[90%] mb-2 bg-red-500 text-white py-2 px-4 rounded-md hover:border-red-700 hover:text-red-700 transition duration-300 border border-red-500">
+                  <div className="flex items-center justify-center">
+                      <span className="ml-2">Place Order</span>
+                  </div>
                 </button>
               </div>
             </div>
@@ -214,8 +225,11 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
             </div>
             <button 
                 onClick={() => window.location.href = '/'}
-                className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-700 transition duration-300">
-                Browse Menu
+                className=" mb-2 bg-white text-red-500 py-2 px-4 rounded-md hover:border-red-700 hover:text-red-700 transition duration-300 border border-red-500">
+                <div className="flex items-center justify-center">
+                    <img src="assets/menu.svg" className="w-6 h-6" alt="Empty Cart"/>
+                    <span className="ml-2">Browse Menu</span>
+                </div>
             </button>
           </div>
         </div>}

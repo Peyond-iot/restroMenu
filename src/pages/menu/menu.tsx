@@ -4,6 +4,8 @@ import TabMenuList from "../../components/tab-menu-list/tab-menu-list";
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Cart from "../cart/cart";
 import PageNotFound from "../page-not-found/page-not-found";
+import OrderPlaced from "../order-placed/order-placed";
+import Status from "../status_page/status_page";
 
 const MenuList = () => {
 
@@ -25,30 +27,36 @@ const MainLayout = () => {
 
   let menuList = [
     {
+      tableNo: 1,
+      menulist:[
+      {
         id:'starters',
         title: 'Starters',
-    },
-    {
+      },
+      {
         id:'chinese',
         title: 'Chinese',
-    },
-    {
+      },
+      {
         id:'main',
         title: 'Main Course',
+      },
+      ]
     },
   ]
   return (
     <div>
       <div className="sticky top-0 bg-white z-50">
         {location.pathname !== "/404" &&<Header/>}
-        {location.pathname === "/" && <TabMenuList data={menuList} />}
+        {location.pathname === "/" && <TabMenuList data={menuList[0].menulist} />}
       </div>
       <div>
         <div>
           <Routes>
-            <Route path="/" element={<CardList menuList={menuList} />} />
-            <Route path="/cart" element={<Cart menuList={menuList} />} />
-            <Route path="/ordered"/>
+            <Route path="/" element={<CardList menuList={menuList[0].menulist} />} />
+            <Route path="/cart" element={<Cart menuList={menuList[0].menulist} />} />
+            <Route path="/ordered" element={<OrderPlaced />}/>
+            <Route path="/status" element={<Status />}/>
             <Route path="/404" element={<PageNotFound />} />
             {/* Redirect all unknown paths to /404 */}
             <Route path="*" element={<Navigate to="/404" replace />} />

@@ -49,8 +49,8 @@ const Header = () => {
   }, []); // Run only once when the component mounts
 
   const breadcrumbItems = [
-    { text: 'Home', link: '/' },
-    { text: 'Cart', link: '/cart' },
+    { text: 'Home', link: '/', svgImage: '/assets/home.svg' },
+    { text: 'Cart', link: '/cart', svgImage: '/assets/cart.svg' },
   ];
 
   const openModal = () => {
