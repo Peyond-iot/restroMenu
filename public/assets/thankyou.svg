@@ -1,0 +1,81 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 100 100"
+  width="200"
+  height="200"
+>
+  <!-- Shopping Bag -->
+  <rect
+    x="30"
+    y="40"
+    width="40"
+    height="50"
+    fill="#E44444"
+    rx="5"
+    ry="5"
+  />
+  <path
+    d="M30 40 Q50 20 70 40"
+    fill="none"
+    stroke="#fff"
+    stroke-width="3"
+  />
+  <!-- Tick Mark -->
+  <path
+    id="checkmark"
+    d="M40 65 L48 75 L65 55"
+    fill="none"
+    stroke="#fff"
+    stroke-width="4"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-dasharray="50"
+    stroke-dashoffset="50"
+  >
+    <animate
+      attributeName="stroke-dashoffset"
+      from="50"
+      to="0"
+      dur="0.7s"
+      begin="0.3s"
+      fill="freeze"
+    />
+  </path>
+  <!-- Confetti -->
+  <circle cx="20" cy="20" r="2" fill="#FFD700">
+    <animate
+      attributeName="cx"
+      from="20"
+      to="40"
+      dur="0.8s"
+      begin="0.6s"
+      fill="freeze"
+    />
+    <animate
+      attributeName="cy"
+      from="20"
+      to="60"
+      dur="0.8s"
+      begin="0.6s"
+      fill="freeze"
+    />
+  </circle>
+  <circle cx="80" cy="20" r="2" fill="#00BFFF">
+    <animate
+      attributeName="cx"
+      from="80"
+      to="60"
+      dur="0.8s"
+      begin="0.6s"
+      fill="freeze"
+    />
+    <animate
+      attributeName="cy"
+      from="20"
+      to="60"
+      dur="0.8s"
+      begin="0.6s"
+      fill="freeze"
+    />
+  </circle>
+</svg>
