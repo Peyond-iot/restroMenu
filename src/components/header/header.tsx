@@ -51,6 +51,7 @@ const Header = () => {
   const breadcrumbItems = [
     { text: 'Home', link: '/', svgImage: '/assets/home.svg' },
     { text: 'Cart', link: '/cart', svgImage: '/assets/cart.svg' },
+    { text: 'Status', link: '/status', svgImage: '/assets/status.svg' },
   ];
 
   const openModal = () => {

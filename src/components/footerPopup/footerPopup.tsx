@@ -14,7 +14,7 @@ const FooterPopup = () => {
                     </h2>
                     <img src='/assets/right-arrow-circular.svg' className='ml-2 mt-[2px] w-6 h-6'/>
                 </div>
-                <div className="w-full text-white text-base leading-relaxed">
+                <div className="w-full text-white text-xs leading-relaxed">
                     Recently added {parsedData[parsedData.length-1]?.title} with a quantity of {parsedData[parsedData.length-1]?.count}
                 </div>
             </div>}
