@@ -68,25 +68,85 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
       }
   }
 
+  let postOrder = async (item: any) =>{
+    const res = await fetch("https://backend-nwcq.onrender.com/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: item
+    });
+
+    if (res.ok) {
+      const result = await res.json();
+      console.log("Response:", result);
+    } else {
+      console.error("Failed to post data", res.status);
+    }
+  }
+
   let OrderPlaced = () => {
     let orderPlaced: any;
+    let orderedItem = cartData.map((item: any)=>{
+      return {
+        name: item.title,
+        quantity: item.count,
+        spiceLevel: item.spicy_level,
+        notes: item.cooking_request,
+        status: 'confirmed',
+        catergory: item.category,
+        price: item.price,
+        food_type: item.type,
+      }
+    });
+
     const orderedData = sessionStorage.getItem('placedOrder');
   
     if (orderedData) {
       orderPlaced = JSON.parse(orderedData);
-      orderPlaced = [...orderPlaced, ...cartData];
+      let allOrderDetails = {
+        ...orderPlaced,
+        orderItems: [...orderPlaced.orderItems, ...orderedItem]
+      }
+      sessionStorage.setItem('placedOrder', JSON.stringify(allOrderDetails));
+      sessionStorage.removeItem('cartData');
+      postOrder(allOrderDetails);
     } else {
-      orderPlaced = cartData;
+        // let allOrderDetails = {
+        //   tableId: '64b2f6a9a57e5b9b7a9e1b77',
+        //   customerId: '64b2f6a9a57e5b9b7a9e1b78',
+        //   tableNumber: "T2",
+        //   totalPrice: taxableAmount,
+        //   placedAt: null,
+        //   completedAt: null,
+        //   restaurantName: "The Flavor Heaven",
+        //   updatedAt: null,
+        //   currency: cartData[0].currency,
+        //   orderNO: 1000,
+        //   orderItems: orderedItem,
+        // };
+        let allOrderDetails ={
+          tableId: "64f1d3c33c82db0012569e43",
+          customerId: "64f1d3c33c82db0012569e43",
+          orderItems: [
+              {
+                  name: "Chicken MOmo",
+                  quantity: 2,
+                  spiceLevel: "Medium",
+                  notes: "No lettuce",
+              }
+          ],
+          tableNumber: "T5",
+          totalPrice: 45.5,
+          status: "pending",
+          placedAt: "2025-01-06T15:00:00.000Z",
+          completedAt: null
+      }
+      sessionStorage.setItem('placedOrder', JSON.stringify(allOrderDetails));
+      sessionStorage.removeItem('cartData');
+      postOrder(allOrderDetails);
     }
 
-    // Add `status: 'confirmed'` to each item
-    orderPlaced = orderPlaced.map((item: any) => ({
-      ...item,
-      status: 'confirmed',
-    }));
-
-    sessionStorage.setItem('placedOrder', JSON.stringify(orderPlaced));
-    sessionStorage.removeItem('cartData');
   };  
 
     return (
@@ -102,28 +162,30 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
                     <div className="flex">
                       <div className="w-[176px] h-auto">
                         <img
-                          className="fit-image border-solid border-r-1 border-red-500"
+                          className="fit-image rounded-l"
                           src={item.image} alt={item.altImage}
                         />
                       </div>
-                      <div className="w-full py-4 px-6 lg:px-8 flex flex-row justify-between">
-                        <div className="w-[60%]">
-                          <h2 className="text-[23px] lg:text-[25px] leading-[26px] lg:leading-normal font-mono text text-red-500">
-                            {item.title}
-                          </h2>
-                          <span className="text-2xl font-bold">{item.priceUpdated}</span>
+                      <div className="w-full py-auto lg:px-4 flex flex-row items-center justify-center">
+                        <div className="w-[60%] px-4 pr-0">
+                          <div className="w-full">
+                            <h2 className="text-[20px] whitespace-nowrap lg:text-[25px] leading-[26px] lg:leading-normal font-mono text-red-500">
+                              {item.title}
+                            </h2>
+                          </div>
+                          <span className="text-lg font-bold">{item.currency}{item.priceUpdated}</span>
                           <div className="w-full text-gray-400 text-base leading-relaxed lg:mb-4">
                             {item.disclaimer}
                           </div>
                         </div>
-                        <div className="w-[40%] flex items-center justify-center">
+                        <div className="w-[40%] flex">
                           <div className="flex items-center space-x-2">
                             <button
                               className="text-2xl font-bold text-gray-700 px-2"
                               onClick={()=>handleDecrease(item?.title)}
                             >
                               <img
-                                className="w-20 h-20"
+                                className="w-6 h-6"
                                 src="/assets/minus.svg"
                                 alt="decrease"
                               />
@@ -136,7 +198,7 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
                               onClick={()=>handleIncrease(item?.title)}
                             >
                               <img
-                                className="w-20 h-20"
+                                className="w-6 h-6"
                                 src="/assets/plus.svg"
                                 alt="increase"
                               />
@@ -149,45 +211,6 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
                 </div>
               </div>
             </div>)}
-
-            {/* <h2 className='text-red-500 mb-2 font-bold text-2xl font-mono'>Price Description</h2>
-            <div className='w-full bg-white rounded-lg shadow-red border-red-500 border-1 p-4 mb-6'>
-              <table className="table-auto text-left w-full border-separate">
-                  <thead className="text-red-500">
-                    <tr>
-                      <th className="w-[50%] text-left">Item</th>
-                      <th className="w-[25%] text-center">Quantity</th>
-                      <th className="w-[25%] text-right">Price</th>
-                    </tr>
-                  </thead>
-                  <tbody className="text-xl">
-                    {cartData.map((item: any) => (
-                      <tr key={item.title}>
-                        <td className="font-bold overflow-hidden">{item?.title}</td>
-                        <td className="flex items-center justify-center">
-                          <img className="w-2 h-2 mr-1" src="/assets/cross.svg" alt="cross" />
-                          <span>{item?.count}</span>
-                        </td>
-                        <td className="text-right">{item?.priceUpdated}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <div className='border-t-2 mt-2 pt-2 border-red-500'>
-                  <div className='text-xl flex justify-between'>
-                    <div className='flex flex-col gap-2'>
-                      <div>Total</div>
-                      <div>Taxes(10%)</div>
-                      <div className='font-bold text-red-500'>Taxable Amount</div>
-                    </div>
-                    <div className='flex flex-col gap-2'>
-                      <div className="text-right">{totalAmount}</div>
-                      <div className="text-right">{taxAmount}</div>
-                      <div className="text-right">{taxableAmount}</div>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
           </div>
 
           {(cartData || menuList) && <div className="lg:container fixed bottom-0 w-full bg-white px-2 rounded-lg shadow-red border-red-300 border-t-2">
@@ -205,7 +228,7 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
                     OrderPlaced();
                     window.location.href = '/ordered'
                   }}
-                  className="w-[90%] mb-2 bg-red-500 text-white py-2 px-4 rounded-md hover:border-red-700 hover:text-red-700 transition duration-300 border border-red-500">
+                  className="lg:w-[30%] w-[90%] mb-2 bg-red-500 text-white py-2 px-4 rounded-md hover:border-red-700 hover:text-red-700 transition duration-300 border border-red-500">
                   <div className="flex items-center justify-center">
                       <span className="ml-2">Place Order</span>
                   </div>

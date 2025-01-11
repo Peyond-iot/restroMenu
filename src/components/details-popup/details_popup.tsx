@@ -152,7 +152,7 @@ const PopUp: React.FC<PopUpProps> = ({ data }) => {
           <ImageSlider data={data?.imageSlider} />
         </div>
         <div className="lg:w-[60%] w-full flex flex-col">
-          <div className="w-full text-gray-700 text-base leading-relaxed lg:mb-4">
+          <div className="w-full text-gray-700 text-base text-justify leading-relaxed lg:mb-4">
             {data?.desc}
           </div>
           <div className="w-full text-gray-400 text-base leading-relaxed lg:mb-2">
