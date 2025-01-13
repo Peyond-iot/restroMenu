@@ -59,8 +59,6 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
       const listed = cartData.some((item: any) => id === item.category);
       totalItem = cartData.length;
       totalAmount = cartData.reduce((sum: any, item: any) => sum + item.priceUpdated, 0);
-      taxAmount = (totalAmount * 10) / 100;
-      taxableAmount = totalAmount + taxAmount;
       if(listed){
           return true
       }else{
@@ -74,7 +72,7 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
       headers: {
         "Content-Type": "application/json",
       },
-      body: item
+      body: JSON.stringify(item)
     });
 
     if (res.ok) {
@@ -89,11 +87,12 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
     let orderPlaced: any;
     let orderedItem = cartData.map((item: any)=>{
       return {
+        itemId: null,
         name: item.title,
         quantity: item.count,
         spiceLevel: item.spicy_level,
         notes: item.cooking_request,
-        status: 'confirmed',
+        status: 'pending',
         catergory: item.category,
         price: item.price,
         food_type: item.type,
@@ -112,36 +111,21 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
       sessionStorage.removeItem('cartData');
       postOrder(allOrderDetails);
     } else {
-        // let allOrderDetails = {
-        //   tableId: '64b2f6a9a57e5b9b7a9e1b77',
-        //   customerId: '64b2f6a9a57e5b9b7a9e1b78',
-        //   tableNumber: "T2",
-        //   totalPrice: taxableAmount,
-        //   placedAt: null,
-        //   completedAt: null,
-        //   restaurantName: "The Flavor Heaven",
-        //   updatedAt: null,
-        //   currency: cartData[0].currency,
-        //   orderNO: 1000,
-        //   orderItems: orderedItem,
-        // };
-        let allOrderDetails ={
-          tableId: "64f1d3c33c82db0012569e43",
-          customerId: "64f1d3c33c82db0012569e43",
-          orderItems: [
-              {
-                  name: "Chicken MOmo",
-                  quantity: 2,
-                  spiceLevel: "Medium",
-                  notes: "No lettuce",
-              }
-          ],
-          tableNumber: "T5",
-          totalPrice: 45.5,
-          status: "pending",
-          placedAt: "2025-01-06T15:00:00.000Z",
-          completedAt: null
-      }
+        let allOrderDetails = {
+          tableId: null,
+          customerId: null,
+          tableNumber: menuList[0]?.tableNo,
+          totalPrice: taxableAmount,
+          placedAt: new Date(),
+          completedAt: null,
+          restaurantName: "The Flavor Heaven",
+          updatedAt: null,
+          currency: cartData[0].currency,
+          orderNO: 1000,
+          ticketStatus: "pending",
+          orderItems: orderedItem,
+        };
+
       sessionStorage.setItem('placedOrder', JSON.stringify(allOrderDetails));
       sessionStorage.removeItem('cartData');
       postOrder(allOrderDetails);
@@ -154,7 +138,7 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
         {cartData.length > 0 && 
         <div>
           <div className="lg:container md:container px-2 pb-20">
-            {menuList && cartData && menuList.map((list: any)=><div className="mb-6 mt-6">
+            {menuList && cartData && menuList[0]?.menulist?.map((list: any)=><div className="mb-6 mt-6">
               {isListed(list.id)&&<h2 id={list.id} className='text-red-500 mb-6 font-bold text-2xl font-mono'>{list.title}</h2>}
               <div className="flex flex-col">
                 <div className="grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-4 md:grid-cols-2 md:container md:gap-4">
@@ -213,12 +197,12 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
             </div>)}
           </div>
 
-          {(cartData || menuList) && <div className="lg:container fixed bottom-0 w-full bg-white px-2 rounded-lg shadow-red border-red-300 border-t-2">
+          {(cartData || menuList[0]?.menulist) && <div className="lg:container fixed bottom-0 w-full bg-white px-2 rounded-lg shadow-red border-red-300 border-t-2">
             <div className="flex items-center justify-between px-6 py-4">
               {/* Left Section  */}
               <div className="w-[40%] flex flex-col justify-center">
                 <span className="text-lg font-semibold">Items: {totalItem}</span>
-                <span className="text-lg font-semibold">Total: Rs.{taxableAmount}</span>
+                <span className="text-lg font-semibold">Total: Rs.{totalAmount}</span>
               </div>
 
               {/* <!-- Right Section --> */}

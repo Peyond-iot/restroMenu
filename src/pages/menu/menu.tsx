@@ -28,22 +28,22 @@ const MainLayout = () => {
 
   let menuList = [
     {
-      tableNo: 1,
+      tableNo: "T2",
       restaurant_name: "Restaurant Name",
       restaurant_address: "Kathmandu, Nepal",
       menulist:[
-      {
-        id:'starters',
-        title: 'Starters',
-      },
-      {
-        id:'chinese',
-        title: 'Chinese',
-      },
-      {
-        id:'main',
-        title: 'Main Course',
-      },
+        {
+          id:'starters',
+          title: 'Starters',
+        },
+        {
+          id:'chinese',
+          title: 'Chinese',
+        },
+        {
+          id:'main',
+          title: 'Main Course',
+        },
       ]
     },
   ]
@@ -57,10 +57,10 @@ const MainLayout = () => {
         <div>
           <Routes>
             <Route path="/" element={<CardList menuList={menuList[0].menulist} />} />
-            <Route path="/cart" element={<Cart menuList={menuList[0].menulist} />} />
+            <Route path="/cart" element={<Cart menuList={menuList} />} />
             <Route path="/ordered" element={<OrderPlaced />}/>
-            <Route path="/status" element={<Status />}/>
-            <Route path="/bill" element={<GenerateBill />}/>
+            <Route path="/status" element={<Status menuList={menuList}/>}/>
+            <Route path="/bill" element={<GenerateBill menuList={menuList}/>}/>
             <Route path="/404" element={<PageNotFound />} />
             {/* Redirect all unknown paths to /404 */}
             <Route path="*" element={<Navigate to="/404" replace />} />
