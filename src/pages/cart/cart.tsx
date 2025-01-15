@@ -10,8 +10,6 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
   const [cartData, setCartData] = useState<any[]>([]);
   let totalItem: any;
   let totalAmount: any;
-  let taxAmount: any;
-  let taxableAmount: any;
 
    // Fetch data from sessionStorage initially
    useEffect(() => {
@@ -67,20 +65,23 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
   }
 
   let postOrder = async (item: any) =>{
-    const res = await fetch("https://backend-nwcq.onrender.com/api/orders", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(item)
-    });
 
-    if (res.ok) {
-      const result = await res.json();
-      console.log("Response:", result);
-    } else {
-      console.error("Failed to post data", res.status);
-    }
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify(item);
+
+    var requestOptions: any = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://backend-nwcq.onrender.com/api/orders", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
   }
 
   let OrderPlaced = () => {
@@ -115,7 +116,7 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
           tableId: null,
           customerId: null,
           tableNumber: menuList[0]?.tableNo,
-          totalPrice: taxableAmount,
+          totalPrice: totalAmount,
           placedAt: new Date(),
           completedAt: null,
           restaurantName: "The Flavor Heaven",

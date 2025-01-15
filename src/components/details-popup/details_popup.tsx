@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ImageSlider from '../image-slider/slider';
 import SpicyPreference from './Spicy_preference/spicy';
 import Swal from 'sweetalert2';
