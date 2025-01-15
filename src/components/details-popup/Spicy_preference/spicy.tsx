@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 type SpicyLevel = 'low' | 'medium' | 'high';
 

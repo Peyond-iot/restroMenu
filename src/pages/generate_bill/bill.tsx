@@ -116,7 +116,7 @@ const GenerateBill: React.FC<BillProps> = ({ menuList }) =>{
       if (crores > 0) words += getNepaliNumber(crores) + " " + nepaliCrores + " ";
       if (lakhs > 0) words += getNepaliNumber(lakhs) + " " + nepaliLakhs + " ";
       if (thousands > 0) words += getNepaliNumber(thousands) + " " + nepaliThousands + " ";
-      if (hundreds > 0) words += nepaliNumbers[hundreds] + " " + nepaliHundreds + " and" + " ";
+      if (hundreds > 0) words += nepaliNumbers[hundreds] + " " + nepaliHundreds + " and ";
       if (remainder > 0) words += getNepaliNumber(remainder) + " ";
       words += "rupees ";
     }
