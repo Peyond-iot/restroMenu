@@ -48,7 +48,7 @@
             <div className="lg:container px-2 mt-6">
                 {orderedData && <div className="flex flex-col">
                     {/* <h1 className="text-2xl font-bold text-red-500 mb-4">Status Page</h1> */}
-                    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-4 md:grid-cols-2 md:container md:gap-4">
+                    <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-4 md:grid-cols-2 md:container md:gap-4">
                     {orderedData && geSortedData(orderedData)?.map((item:any)=>
                         <div className="flex flex-row w-full bg-white rounded-lg shadow-red border-red-500 border-1 cursor-pointer">
                             <div className="w-full flex">
@@ -61,7 +61,7 @@
                                 </div> */}
                                 <div className="w-full pl-4 flex flex-row justify-between">
                                     <div className="w-[50%] mr-2 overflow-hidden items-center py-2">
-                                        <h2 className="text-[23px] lg:text-[25px] leading-[26px] lg:leading-normal font-mono text-red-500">
+                                        <h2 className="text-lg max-w-[150px] truncate leading-[26px] lg:leading-normal font-mono text-red-500">
                                             {item?.name}
                                         </h2>
                                         <div className="w-full text-gray-400 text-base leading-relaxed">

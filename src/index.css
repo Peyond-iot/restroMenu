@@ -37,3 +37,18 @@ fit-image{
   justify-content: center;
   align-items: center;
 }
+
+/* For WebKit Browsers */
+::-webkit-scrollbar-thumb {
+  background-color: #e44444;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #b83333;
+}
+
+::-webkit-scrollbar{
+  color: #e44444;
+  width: 5px;
+}

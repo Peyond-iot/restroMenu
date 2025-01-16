@@ -38,7 +38,9 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
         } catch (error: any) {
           setError(error?.message);
         } finally {
-          setLoading(false);
+          setTimeout(()=>{
+            setLoading(false);
+          },2500)
         }
     };
     
@@ -155,7 +157,7 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
         }
     }
    
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <div className='flex justify-center items-center h-[80vh]'><img src='assets/loading.gif' className='w-24 h-24' alt='Loading...'/></div>
     if (error) return <p>Error: {error}</p>;
 
     return (
