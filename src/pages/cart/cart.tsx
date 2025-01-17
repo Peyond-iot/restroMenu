@@ -8,15 +8,22 @@ interface CartListProps{
 const Cart: React.FC<CartListProps> = ({ menuList }) =>{
   
   const [cartData, setCartData] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>();
+  const [show, setShow] = useState<boolean>(false);
   let totalItem: any;
   let totalAmount: any;
 
    // Fetch data from sessionStorage initially
    useEffect(() => {
     const sessionData = sessionStorage.getItem('cartData');
-    if (sessionData) {
-      setCartData(JSON.parse(sessionData));
-    }
+    setLoading(true)
+    setTimeout(()=>{
+      setShow(true)
+      setLoading(false)
+      if (sessionData) {
+        setCartData(JSON.parse(sessionData));
+      }
+    }, 2000)
   }, []);
 
   // Update sessionStorage when cartData changes (only if cartData is not empty)
@@ -134,9 +141,11 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
 
   };  
 
-    return (
+  if (loading) {return <div className='flex justify-center items-center h-[80vh]'><img src='assets/loading.gif' className='w-24 h-24' alt='Loading...'/></div>}
+
+  return (
       <div>
-        {cartData.length > 0 && 
+        {cartData.length > 0 && show && 
         <div>
           <div className="lg:container md:container px-2 pb-20">
             {menuList && cartData && menuList[0]?.menulist?.map((list: any)=><div className="mb-6 mt-6">
@@ -145,16 +154,16 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
                 <div className="grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-4 md:grid-cols-2 md:container md:gap-4">
                   {cartData.map((item: any)=>(item.category===list.id) && <div className="flex flex-row w-full bg-white rounded-lg shadow-red border-red-500 border-1 cursor-pointer">
                     <div className="flex">
-                      <div className="w-[176px] h-auto">
+                      <div className="w-[176px] h-full">
                         <img
-                          className="fit-image rounded-l"
+                          className="fit-image h-full rounded-l"
                           src={item.image} alt={item.altImage}
                         />
                       </div>
                       <div className="w-full py-auto lg:px-4 flex flex-row items-center justify-center">
                         <div className="w-[60%] px-4 pr-0">
                           <div className="w-full">
-                            <h2 className="text-[20px] whitespace-nowrap lg:text-[25px] leading-[26px] lg:leading-normal font-mono text-red-500">
+                            <h2 className="max-w-[120px] truncate text-lg whitespace-nowrap lg:text-[25px] leading-[26px] lg:leading-normal font-mono text-red-500">
                               {item.title}
                             </h2>
                           </div>
@@ -198,7 +207,7 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
             </div>)}
           </div>
 
-          {(cartData || menuList[0]?.menulist) && <div className="lg:container fixed bottom-0 w-full bg-white px-2 rounded-lg shadow-red border-red-300 border-t-2">
+          {(cartData || menuList[0]?.menulist) && show && <div className="lg:container fixed bottom-0 w-full bg-white px-2 rounded-lg shadow-red border-red-300 border-t-2">
             <div className="flex items-center justify-between px-6 py-4">
               {/* Left Section  */}
               <div className="w-[40%] flex flex-col justify-center">
@@ -224,7 +233,7 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
         </div>
         }
 
-        {!(cartData.length > 0) &&<div>
+        {!(cartData.length > 0) && show && <div>
           <div className="flex flex-col items-center justify-center h-screen">
             <img src='assets/cart_page.svg' className='w-12 h-12' alt='Empty Cart'/>
             <h1 className="text-2xl font-bold mb-4 font-serif">Empty Cart!</h1>

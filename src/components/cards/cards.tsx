@@ -5,7 +5,6 @@ import PopUp from '../details-popup/details_popup';
 import './cards.css';
 import Rating from '../rating/rating';
 import FooterPopup from '../footerPopup/footerPopup';
-import ReactDOM from 'react-dom';
 
 interface CardListProps{
     menuList: any
@@ -38,7 +37,8 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
         } catch (error: any) {
           setError(error?.message);
         } finally {
-          setLoading(false);
+            setLoading(false);
+            getCartData()
         }
     };
     
@@ -49,42 +49,44 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
 
     const MySwal = withReactContent(Swal);
 
+    let getCartData = () =>{
+      const sessionData = sessionStorage.getItem('cartData');
+      const parsedData = sessionData ? JSON.parse(sessionData) : []; // Fallback to empty array
+
+      if (parsedData.length > 0) {        
+        footerPopup(parsedData)
+      }
+      return parsedData;
+    }
+
+
+    let footerPopup = (data: any) =>{
+      // Pass the container's innerHTML as the content to SweetAlert2
+
+      MySwal.fire({
+        title: "",
+        html: <FooterPopup parsedData={data}/>, // Use the rendered HTML
+        position: 'bottom',
+        showCancelButton: false,
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        showCloseButton: false,
+        backdrop: false,
+        didOpen: () => {
+          const popup = document.querySelector('.swal2-container');
+          if (popup) {
+            popup.setAttribute('id', 'added-popup'); // Assign your custom ID
+          }
+        },
+      });
+    }
+
   
     useEffect(() => {
         // Fetch Menu Data from API
         fetchData();
-      
         // Add the event listener when the component mounts
         window.addEventListener('resize', handleResize);
-      
-        const sessionData = sessionStorage.getItem('cartData');
-        const parsedData = sessionData ? JSON.parse(sessionData) : []; // Fallback to empty array
-      
-        if (parsedData.length > 0) {
-          // Create a container for the React component
-          const container = document.createElement('div');
-      
-          // Render the React component into the container
-          ReactDOM.render(<FooterPopup />, container);
-      
-          // Pass the container's innerHTML as the content to SweetAlert2
-          Swal.fire({
-            title: "",
-            html: container.innerHTML, // Use the rendered HTML
-            position: 'bottom',
-            showCancelButton: false,
-            showConfirmButton: false,
-            allowOutsideClick: false,
-            showCloseButton: false,
-            backdrop: false,
-            didOpen: () => {
-              const popup = document.querySelector('.swal2-container');
-              if (popup) {
-                popup.setAttribute('id', 'added-popup'); // Assign your custom ID
-              }
-            },
-          });
-        }
       
         // Clean up the event listener when the component unmounts
         return () => {
@@ -94,13 +96,9 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
 
     let openModal = (data: any) =>{
 
-        const sessionData = sessionStorage.getItem('cartData');
-        const parsedData = sessionData ? JSON.parse(sessionData) : []; // Fallback to empty array
-
-
-        const isDataMatched = parsedData.some((item: any) => item.title === data.title) || null;
-        const dataToShow = parsedData?.filter((item: any)=>item.title === data.title);
-        const numberInCart:number = parsedData?.length;
+        const isDataMatched = getCartData().some((item: any) => item.title === data.title) || null;
+        const dataToShow = getCartData()?.filter((item: any)=>item.title === data.title);
+        const numberInCart:number = getCartData()?.length;
         MySwal.fire({
             title: "",
             html: <PopUp data={isDataMatched? dataToShow[0] : data}/>, // Render your component here
@@ -125,22 +123,7 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
                 document?.querySelector('.swal2-popup')?.classList?.add('fade-out-animation');
 
                 if(numberInCart>0){
-                    MySwal.fire({
-                      title: "",
-                      html: <FooterPopup/>, // Render your component here
-                      position: 'bottom',
-                      showCancelButton: false,
-                      showConfirmButton: false,
-                      allowOutsideClick: false,
-                      showCloseButton: false,
-                      backdrop: false,
-                      didOpen: () => {
-                      const popup = document.querySelector('.swal2-container');
-                      if (popup) {
-                          popup.setAttribute('id', 'added-popup'); // Assign your custom ID
-                      }
-                      },
-                    })
+                  getCartData()
                 }
             },
         })
@@ -155,7 +138,7 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
         }
     }
    
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <div className='flex justify-center items-center h-[80vh]'><img src='assets/loading.gif' className='w-24 h-24' alt='Loading...'/></div>
     if (error) return <p>Error: {error}</p>;
 
     return (

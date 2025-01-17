@@ -79,7 +79,7 @@ const PopUp: React.FC<PopUpProps> = ({ data }) => {
         if(numberInCart>0){
           MySwal.fire({
             title: "",
-            html: <FooterPopup/>, // Render your component here
+            html: <FooterPopup parsedData={parsedData}/>, // Render your component here
             position: 'bottom',
             showCancelButton: false,
             showConfirmButton: false,
@@ -121,7 +121,7 @@ const PopUp: React.FC<PopUpProps> = ({ data }) => {
         if(numberInCart>0){
           MySwal.fire({
             title: "",
-            html: <FooterPopup/>, // Render your component here
+            html: <FooterPopup parsedData={parsedData}/>, // Render your component here
             position: 'bottom',
             showCancelButton: false,
             showConfirmButton: false,

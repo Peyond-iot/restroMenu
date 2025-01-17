@@ -52,6 +52,7 @@ const Header = () => {
     { text: 'Home', link: '/', svgImage: '/assets/home.svg' },
     { text: 'Cart', link: '/cart', svgImage: '/assets/cart.svg' },
     { text: 'Status', link: '/status', svgImage: '/assets/status.svg' },
+    { text: 'Bill', link: '/bill', svgImage: '/assets/bill.svg' },
   ];
 
   const openModal = () => {
