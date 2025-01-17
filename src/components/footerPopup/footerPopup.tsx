@@ -1,7 +1,10 @@
-const FooterPopup = () => {
 
-    const sessionData = sessionStorage.getItem('cartData');
-    const parsedData = sessionData ? JSON.parse(sessionData) : [];
+
+interface FooterProps{
+    parsedData: any
+}
+
+const FooterPopup: React.FC<FooterProps> = ({ parsedData }) =>{
 
     const numberInCart:number = parsedData?.length
 
