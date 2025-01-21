@@ -9,7 +9,7 @@ const GenerateBill: React.FC<BillProps> = ({ menuList }) =>{
 
    const [orderedData, setData] = useState<any>([]);
 
-   let isPrint: boolean;
+  //  let isPrint: boolean;
 
    const [loading, setLoading] = useState(true);
    const [error, setError] = useState(null);
