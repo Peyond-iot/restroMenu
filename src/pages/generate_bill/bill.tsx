@@ -173,7 +173,6 @@ const GenerateBill: React.FC<BillProps> = ({ menuList }) =>{
   }
 
   let print = () => {
-    isPrint = true;
     window.print()
   }
   
