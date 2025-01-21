@@ -56,7 +56,7 @@ const MainLayout = () => {
       <div>
         <div>
           <Routes>
-            <Route path="/" element={<CardList menuList={menuList[0].menulist} />} />
+            <Route path="/" element={<CardList menuList={menuList} />} />
             <Route path="/cart" element={<Cart menuList={menuList} />} />
             <Route path="/ordered" element={<OrderPlaced />}/>
             <Route path="/status" element={<Status menuList={menuList}/>}/>

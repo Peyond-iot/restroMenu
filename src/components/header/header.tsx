@@ -64,7 +64,7 @@ const Header = () => {
       showConfirmButton: false,
       backdrop: true,
       allowOutsideClick: false,
-      width: window.innerWidth < 768 ? '50%' : '20%',
+      width: window.innerWidth < 768 ? '75%' : '15%',
     });
   };
 

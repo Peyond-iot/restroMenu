@@ -41,7 +41,7 @@
             return (filteredData[0]?.orderItems || []); // Access orderItems if filteredData exists
         }
 
-        if (loading) return <p>Loading...</p>;
+        if (loading) return <div className='flex justify-center items-center h-[80vh]'><img src='assets/loading.gif' className='w-24 h-24' alt='Loading...'/></div>
         if (error) return <p>Error: {error}</p>;
 
         return(
@@ -61,7 +61,7 @@
                                 </div> */}
                                 <div className="w-full pl-4 flex flex-row justify-between">
                                     <div className="w-[50%] mr-2 overflow-hidden items-center py-2">
-                                        <h2 className="text-lg max-w-[150px] truncate leading-[26px] lg:leading-normal font-mono text-red-500">
+                                        <h2 className="text-lg sm:max-w-[150px] sm:truncate leading-[26px] lg:leading-normal font-mono text-red-500">
                                             {item?.name}
                                         </h2>
                                         <div className="w-full text-gray-400 text-base leading-relaxed">
