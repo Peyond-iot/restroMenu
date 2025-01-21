@@ -8,7 +8,7 @@ interface CartListProps{
 const Cart: React.FC<CartListProps> = ({ menuList }) =>{
   
   const [cartData, setCartData] = useState<any[]>([]);
-    const [orderedData, setOrderedData] = useState<any>([]);
+    // const [orderedData, setOrderedData] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>();
   const [show, setShow] = useState<boolean>(false);
   let totalItem: any;
