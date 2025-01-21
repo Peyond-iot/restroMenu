@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import PopUp from '../details-popup/details_popup';
@@ -30,7 +30,7 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
     const MySwal = withReactContent(Swal);
 
 
-    const fetchData = async () => {
+    const fetchData = useCallback(async () => {
         try {
           const response = await fetch('https://backend-nwcq.onrender.com/api/menuItems');
           if (!response.ok) {
@@ -47,7 +47,7 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
             fetchOrderedData()
           },1500)
         }
-    };
+    }, [])
 
     const fetchOrderedData = async () => {
       try {
@@ -120,7 +120,7 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
         return () => {
           window.removeEventListener('resize', handleResize);
         };
-      });
+      },[fetchData]);
 
     let openModal = (data: any) =>{
 
