@@ -100,7 +100,7 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
             throw new Error('Network response was not ok');
         }
         const result = await response.json();
-        setOrderedData(result); // Update the state after filtering
+        // setOrderedData(result); // Update the state after filtering
         // orderedData = result
       } catch (error: any) {
           console.log(error?.message);
