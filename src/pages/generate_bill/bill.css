@@ -1,0 +1,14 @@
+/* Print styles */
+@media print {
+    body * {
+      visibility: hidden;
+    }
+    #print-section, #print-section * {
+      visibility: visible;
+    }
+
+    #hiddenClass, #hiddenClass *{
+        visibility: hidden;
+    }
+    
+  }

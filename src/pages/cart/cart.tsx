@@ -8,6 +8,7 @@ interface CartListProps{
 const Cart: React.FC<CartListProps> = ({ menuList }) =>{
   
   const [cartData, setCartData] = useState<any[]>([]);
+    const [orderedData, setOrderedData] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>();
   const [show, setShow] = useState<boolean>(false);
   let totalItem: any;
@@ -71,24 +72,42 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
       }
   }
 
-  let postOrder = async (item: any) =>{
+  let postOrder = async (item: any, method: string) =>{
 
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
+    if(method === "post"){
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
 
-    var raw = JSON.stringify(item);
+      var raw = JSON.stringify(item);
 
-    var requestOptions: any = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow'
-    };
+      var requestOptions: any = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
 
-    fetch("https://backend-nwcq.onrender.com/api/orders", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
+      fetch("https://backend-nwcq.onrender.com/api/orders", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+    }
+
+    if(method === "get"){
+      try {
+        const response = await fetch('https://backend-nwcq.onrender.com/api/orders');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const result = await response.json();
+        setOrderedData(result); // Update the state after filtering
+        // orderedData = result
+      } catch (error: any) {
+          console.log(error?.message);
+      } finally {
+        // return orderedData
+      }
+    }
   }
 
   let OrderPlaced = () => {
@@ -108,6 +127,8 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
     });
 
     const orderedData = sessionStorage.getItem('placedOrder');
+    // postOrder('','get');
+    // orderPlaced = orderedData?.filter((item: any) => item.tableNumber === menuList[0]?.tableNo) || [];
   
     if (orderedData) {
       orderPlaced = JSON.parse(orderedData);
@@ -115,9 +136,11 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
         ...orderPlaced,
         orderItems: [...orderPlaced.orderItems, ...orderedItem]
       }
-      sessionStorage.setItem('placedOrder', JSON.stringify(allOrderDetails));
+
       sessionStorage.removeItem('cartData');
-      postOrder(allOrderDetails);
+      sessionStorage.removeItem('placedOrder');
+      sessionStorage.setItem('placedOrder', JSON.stringify(allOrderDetails));
+      postOrder(allOrderDetails, "post");
     } else {
         let allOrderDetails = {
           tableId: null,
@@ -136,7 +159,7 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
 
       sessionStorage.setItem('placedOrder', JSON.stringify(allOrderDetails));
       sessionStorage.removeItem('cartData');
-      postOrder(allOrderDetails);
+      postOrder(allOrderDetails, "post");
     }
 
   };  
@@ -151,9 +174,9 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
             {menuList && cartData && menuList[0]?.menulist?.map((list: any)=><div className="mb-6 mt-6">
               {isListed(list.id)&&<h2 id={list.id} className='text-red-500 mb-6 font-bold text-2xl font-mono'>{list.title}</h2>}
               <div className="flex flex-col">
-                <div className="grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-4 md:grid-cols-2 md:container md:gap-4">
+                <div className="grid grid-cols-1 gap-3 xl:grid-cols-3 lg:gap-4 md:grid-cols-2 lg:container">
                   {cartData.map((item: any)=>(item.category===list.id) && <div className="flex flex-row w-full bg-white rounded-lg shadow-red border-red-500 border-1 cursor-pointer">
-                    <div className="flex">
+                    <div className="flex w-full">
                       <div className="w-[176px] h-full">
                         <img
                           className="fit-image h-full rounded-l"
@@ -163,7 +186,7 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
                       <div className="w-full py-auto lg:px-4 flex flex-row items-center justify-center">
                         <div className="w-[60%] px-4 pr-0">
                           <div className="w-full">
-                            <h2 className="max-w-[120px] truncate text-lg whitespace-nowrap lg:text-[25px] leading-[26px] lg:leading-normal font-mono text-red-500">
+                            <h2 className="max-w-[110px] lg:max-w-full truncate text-lg whitespace-nowrap lg:text-[25px] leading-[26px] lg:leading-normal font-mono text-red-500">
                               {item.title}
                             </h2>
                           </div>
@@ -172,7 +195,7 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
                             {item.disclaimer}
                           </div>
                         </div>
-                        <div className="w-[40%] flex">
+                        <div className="w-[40%] flex lg:justify-end">
                           <div className="flex items-center space-x-2">
                             <button
                               className="text-2xl font-bold text-gray-700 px-2"
@@ -207,7 +230,7 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
             </div>)}
           </div>
 
-          {(cartData || menuList[0]?.menulist) && show && <div className="lg:container fixed bottom-0 w-full bg-white px-2 rounded-lg shadow-red border-red-300 border-t-2">
+          {(cartData || menuList[0]?.menulist) && show && <div className="fixed bottom-0 w-full bg-white px-2 rounded-lg shadow-red border-red-300 border-t-2">
             <div className="flex items-center justify-between px-6 py-4">
               {/* Left Section  */}
               <div className="w-[40%] flex flex-col justify-center">

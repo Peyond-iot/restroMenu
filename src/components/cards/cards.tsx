@@ -23,8 +23,12 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     const [menuData, setData] = useState<any>([]);
+    let orderedData: any;
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const MySwal = withReactContent(Swal);
+
 
     const fetchData = async () => {
         try {
@@ -36,36 +40,60 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
           setData(result); // Assuming the API returns an array or object
         } catch (error: any) {
           setError(error?.message);
+          
         } finally {
+          setTimeout(()=>{
             setLoading(false);
-            getCartData()
+            fetchOrderedData()
+          },1500)
         }
     };
+
+    const fetchOrderedData = async () => {
+      try {
+          const response = await fetch('https://backend-nwcq.onrender.com/api/orders');
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
+          }
+          const result = await response.json();
+          orderedData = result
+      } catch (error: any) {
+          console.log(error?.message);
+      } finally {
+        getCartData()
+      }
+  };
     
   
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
 
-    const MySwal = withReactContent(Swal);
 
     let getCartData = () =>{
+
       const sessionData = sessionStorage.getItem('cartData');
       const parsedData = sessionData ? JSON.parse(sessionData) : []; // Fallback to empty array
 
       if (parsedData.length > 0) {        
-        footerPopup(parsedData)
+        footerPopup(parsedData, true)
+      }else {
+        const filteredData = orderedData?.filter((item: any) => item.tableNumber === menuList[0]?.tableNo) || [];
+        const isAllCompleted: boolean = filteredData[0]?.orderItems?.some((item:any) => item.status !== "completed");
+        if(filteredData?.length>0 && isAllCompleted){
+          footerPopup(filteredData, false)
+        }
       }
       return parsedData;
     }
 
 
-    let footerPopup = (data: any) =>{
+    let footerPopup = (data: any, bool: boolean) =>{
       // Pass the container's innerHTML as the content to SweetAlert2
 
       MySwal.fire({
         title: "",
-        html: <FooterPopup parsedData={data}/>, // Use the rendered HTML
+        html: <FooterPopup parsedData={data} cartData={bool}/>, // Use the rendered HTML
         position: 'bottom',
         showCancelButton: false,
         showConfirmButton: false,
@@ -144,10 +172,10 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
     return (
         <div className='pb-6 lg:pb-0'>
             <div className='lg:container md:container px-2'>
-                {menuList.map((list: any)=>(
+                {menuList[0]?.menulist.map((list: any)=>(
                 <div className='mb-12'>
                     {isListed(list.id)&&<h2 id={list.id} className='text-red-500 mb-6 font-bold text-2xl font-mono'>{list.title}</h2>}
-                        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4 md:grid-cols-3 md:container md:gap-4">
+                        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4 md:grid-cols- md:container md:gap-4">
                         {menuData.map((item: any)=>((item.category===list.id) && (<div onClick={() => openModal(item)}>
                             <div className="w-full bg-white rounded-lg shadow-red border-red-500 border-1 cursor-pointer">
                             <img 
