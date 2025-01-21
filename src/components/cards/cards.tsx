@@ -120,7 +120,7 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
         return () => {
           window.removeEventListener('resize', handleResize);
         };
-      }, []);
+      });
 
     let openModal = (data: any) =>{
 
