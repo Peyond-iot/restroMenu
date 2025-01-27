@@ -1,8 +1,8 @@
-**Ordering App 🍴**
+<h1 align="center">FOOD ORDERING APP 🍴</h1>
 
-A sleek and intuitive application for managing food orders with real-time updates and a modern user interface.
+**A sleek and intuitive application for managing food orders with real-time updates and a modern user interface.**
 
-**Demo:**
+<h3>Demo:</h3>
 
 ![orederingApp-MadewithClipchamp-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/172a3d21-5467-47c8-9f26-8369a724854b)
 
@@ -85,21 +85,30 @@ npm or yarn
 
 **🖼️ Screenshots**
 
-Menu Page	        
-![Screenshot_2025-01-27-13-53-47-591_com android chrome](https://github.com/user-attachments/assets/43d85703-2aa5-4a6c-9c19-4617cf80666f)
+**Menu Page:**	
 
-
-Cart Management
-![Screenshot_2025-01-27-13-54-32-602_com android chrome](https://github.com/user-attachments/assets/ff5c0509-f69b-4e9b-b60c-fa789720dc4c)
+![Screenshot_2025-01-27-13-53-47-591_com android chrome (1)](https://github.com/user-attachments/assets/fac99303-e389-40a0-9ab5-597e7147d3db)
 
 
 
-Order Status	   
-![Screenshot_2025-01-27-13-54-51-071_com android chrome](https://github.com/user-attachments/assets/62e15c63-1449-4d09-b807-841f27b914e4)
+
+**Cart Management:**
+
+![Screenshot_2025-01-27-13-54-32-602_com android chrome (1)](https://github.com/user-attachments/assets/14cd3b77-a9d5-42ce-8f24-e30f5489d4b7)
 
 
-Bill Generation    
-![Screenshot_2025-01-27-13-54-02-385_com android chrome](https://github.com/user-attachments/assets/ab5210e0-a8da-462b-b2c8-d963577213e8)
+
+
+**Order Status:**
+
+![Screenshot_2025-01-27-13-54-51-071_com android chrome (1)](https://github.com/user-attachments/assets/662125bc-17e7-4205-a10b-9fe8c30a573a)
+
+
+
+**Bill Generation:**  
+
+![Screenshot_2025-01-27-13-54-02-385_com android chrome (1)](https://github.com/user-attachments/assets/f244b5b0-f581-44da-aef1-be6bec8f989d)
+
 
 
 
