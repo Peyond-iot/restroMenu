@@ -114,15 +114,15 @@ npm or yarn
         </tr>
         <tr>
             <td><h4>Cart Management:</h4></td>
-            <td><img src="https://res.cloudinary.com/duepdybse/image/upload/v1737968954/Screenshot_2025-01-27-13-53-47-591_com.android.chrome_1_ssn0u1.jpg" alt="Image description" width="300" /></td>
+            <td><img src="https://res.cloudinary.com/duepdybse/image/upload/v1737968954/Screenshot_2025-01-27-13-54-32-602_com.android.chrome_1_p9bg7h" alt="Image description" width="300" /></td>
         </tr>
         <tr>
             <td><h4>Order Status:</h4></td>
-            <td><img src="https://res.cloudinary.com/duepdybse/image/upload/v1737968954/Screenshot_2025-01-27-13-53-47-591_com.android.chrome_1_ssn0u1.jpg" alt="Image description" width="300" /></td>
+            <td><img src="https://res.cloudinary.com/duepdybse/image/upload/v1737968954/Screenshot_2025-01-27-13-54-51-071_com.android.chrome_1_rmzce9.jpg" alt="Image description" width="300" /></td>
         </tr>
         <tr>
             <td><h4>Bill Generation:</h4></td>
-            <td><img src="https://res.cloudinary.com/duepdybse/image/upload/v1737968954/Screenshot_2025-01-27-13-53-47-591_com.android.chrome_1_ssn0u1.jpg" alt="Image description" width="300" /></td>
+            <td><img src="https://res.cloudinary.com/duepdybse/image/upload/v1737968954/Screenshot_2025-01-27-13-54-02-385_com.android.chrome_1_icyhqx.jpg" alt="Image description" width="300" /></td>
         </tr>
     </tbody>
 </table>
