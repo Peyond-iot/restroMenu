@@ -1,5 +1,4 @@
     import { useCallback, useEffect, useState } from "react";
-    import io from "socket.io-client";
 
     interface StatusProps{
         menuList: any
@@ -11,10 +10,6 @@
         const [loading, setLoading] = useState(true);
         const [error, setError] = useState(null);
 
-        const socket = io('https://backend-nwcq.onrender.com', {
-            transports: ['websocket', 'polling'],
-            reconnection: true,
-          });
 
         const fetchOrderedData = useCallback(async () => {
             try {
@@ -34,31 +29,18 @@
         
 
         useEffect(() => {
-            fetchOrderedData()
-
-             
-        }, []);
-
-        useEffect(()=>{
-            socket.on('connect', () => {
-                console.log('Connected to the server:', socket.id);
-              });
-              
-            // Listen for data changes
-            socket.on('update', (orderedData: any) => {
-                console.log("New order created:", orderedData);
-                setData(orderedData);
-            });
-
-            socket.on('disconnect', () => {
-                console.log('Disconnected from the server');
-            });
+            setInterval(()=>{
+                fetchOrderedData()
+            },10000)
 
             // Clean up the event listener when the component unmounts
             return () => {
-                socket.off('update')
+
             };
-        }, [])
+             
+        }, []);
+
+
 
         let geSortedData = (data: any) =>{
             // Filter the data using the API response directly
