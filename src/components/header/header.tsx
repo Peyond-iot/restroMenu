@@ -63,7 +63,7 @@ const Header = () => {
       showCancelButton: true,
       showConfirmButton: false,
       backdrop: true,
-      allowOutsideClick: false,
+      allowOutsideClick: true,
       width: window.innerWidth < 768 ? '75%' : '15%',
     });
   };

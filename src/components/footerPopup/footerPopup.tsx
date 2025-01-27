@@ -8,7 +8,7 @@ const FooterPopup: React.FC<FooterProps> = ({ parsedData, cartData }) =>{
     const numberofItems:number = cartData? parsedData?.length : parsedData[0]?.orderItems?.length;  
     
     let notCompletedCount = (parsedData: any): number => {
-        const notCompletedCount: number = parsedData[0]?.orderItems?.filter((item: any) => item.status !== "completed").length;
+        const notCompletedCount: number = parsedData[0]?.orderItems?.filter((item: any) => item.status !== "served").length;
 
         return notCompletedCount
     }

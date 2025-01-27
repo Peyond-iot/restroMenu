@@ -79,7 +79,7 @@ const CardList: React.FC<CardListProps> = ({ menuList }) => {
         footerPopup(parsedData, true)
       }else {
         const filteredData = orderedData?.filter((item: any) => item.tableNumber === menuList[0]?.tableNo) || [];
-        const isAllCompleted: boolean = filteredData[0]?.orderItems?.some((item:any) => item.status !== "completed");
+        const isAllCompleted: boolean = filteredData[0]?.orderItems?.some((item:any) => item.status !== "served");
         if(filteredData?.length>0 && isAllCompleted){
           footerPopup(filteredData, false)
         }
