@@ -29,7 +29,7 @@ https://peyondfoodordering.netlify.app/
 
 <h3>🛠️ Technologies Used</h3>
 
-**Frontend:** React, TypeScript
+**Frontend:** React, TypeScript, Tailwind CSS
 
 **Backend:** Node.js, Express
 
