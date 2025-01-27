@@ -1,8 +1,8 @@
 Ordering App 🍴
 A sleek and intuitive application for managing food orders with real-time updates and a modern user interface.
 
-
-Replace this with a GIF or screenshot of your app.
+Demo:
+![orederingApp-MadewithClipchamp-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/172a3d21-5467-47c8-9f26-8369a724854b)
 
 📜 Features
 Menu Display: Dynamically fetches and displays menu items.
