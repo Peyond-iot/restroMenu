@@ -75,6 +75,7 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
   let postOrder = async (item: any, method: string) =>{
 
     if(method === "post"){
+      setLoading(true)
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
 
@@ -88,9 +89,22 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
       };
 
       fetch("https://backend-nwcq.onrender.com/api/orders", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
+        .then(response => {
+          if(response){
+            setTimeout(()=>{
+              setLoading(false);
+              window.location.href = '/ordered'
+            },1500)
+          }
+        })
+        .then(result => {
+          sessionStorage.removeItem('cartData');
+          sessionStorage.removeItem('placedOrder');
+        })
+        .catch(error => {
+          console.log('error', error)
+          return <div className='flex justify-center items-center h-[80vh] text-red-500'>Something went wrong !!!</div>
+        });
     }
 
     if(method === "get"){
@@ -137,8 +151,6 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
         orderItems: [...orderPlaced.orderItems, ...orderedItem]
       }
 
-      sessionStorage.removeItem('cartData');
-      sessionStorage.removeItem('placedOrder');
       sessionStorage.setItem('placedOrder', JSON.stringify(allOrderDetails));
       postOrder(allOrderDetails, "post");
     } else {
@@ -158,7 +170,6 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
         };
 
       sessionStorage.setItem('placedOrder', JSON.stringify(allOrderDetails));
-      sessionStorage.removeItem('cartData');
       postOrder(allOrderDetails, "post");
     }
 
@@ -243,7 +254,6 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
                 <button 
                   onClick={() => {
                     OrderPlaced();
-                    window.location.href = '/ordered'
                   }}
                   className="lg:w-[30%] w-[90%] mb-2 bg-red-500 text-white py-2 px-4 rounded-md hover:border-red-700 hover:text-red-700 transition duration-300 border border-red-500">
                   <div className="flex items-center justify-center">

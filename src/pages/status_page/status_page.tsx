@@ -1,4 +1,4 @@
-    import { useEffect, useState } from "react";
+    import { useCallback, useEffect, useState } from "react";
 
     interface StatusProps{
         menuList: any
@@ -10,7 +10,8 @@
         const [loading, setLoading] = useState(true);
         const [error, setError] = useState(null);
 
-        const fetchOrderedData = async () => {
+
+        const fetchOrderedData = useCallback(async () => {
             try {
                 const response = await fetch('https://backend-nwcq.onrender.com/api/orders');
                 if (!response.ok) {
@@ -23,17 +24,23 @@
             } finally {
                 setLoading(false);
             }
-        };
+        }, [])
         
         
 
         useEffect(() => {
-                // Fetch Menu Data from API
-                fetchOrderedData();
-                // Clean up the event listener when the component unmounts
+            setInterval(()=>{
+                fetchOrderedData()
+            },10000)
+
+            // Clean up the event listener when the component unmounts
             return () => {
+
             };
+             
         }, []);
+
+
 
         let geSortedData = (data: any) =>{
             // Filter the data using the API response directly
@@ -78,7 +85,7 @@
                         </div>)}
                     </div>
 
-                    <div className="flex flex-row gap-2 mt-12 item-center justify-center">
+                    <div className="flex flex-row gap-2 mt-12 mb-12 item-center justify-center">
                         <button 
                             onClick={() => window.location.href = '/bill'}
                             className="bg-white text-red-500 py-2 px-4 rounded-md hover:border-red-700 hover:text-red-700 transition duration-300 border border-red-500">
