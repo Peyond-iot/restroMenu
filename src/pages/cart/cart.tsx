@@ -188,9 +188,9 @@ const Cart: React.FC<CartListProps> = ({ menuList }) =>{
                 <div className="grid grid-cols-1 gap-3 xl:grid-cols-3 lg:gap-4 md:grid-cols-2 lg:container">
                   {cartData.map((item: any)=>(item.category===list.id) && <div className="flex flex-row w-full bg-white rounded-lg shadow-red border-red-500 border-1 cursor-pointer">
                     <div className="flex w-full">
-                      <div className="w-[176px] h-full">
+                      <div className="w-[176px]">
                         <img
-                          className="fit-image h-full rounded-l"
+                          className="fit-image rounded-l"
                           src={item.image} alt={item.altImage}
                         />
                       </div>
