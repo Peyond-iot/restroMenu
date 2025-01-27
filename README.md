@@ -2,12 +2,10 @@
 
 **A sleek and intuitive application for managing food orders with real-time updates and a modern user interface.**
 
-<h3>Demo:</h3>
-
 ![orederingApp-MadewithClipchamp-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/172a3d21-5467-47c8-9f26-8369a724854b)
 
 
-**📜 Features**
+<h3>📜 Features</h3>
 
 **Menu Display:** Dynamically fetches and displays menu items.
 
@@ -22,14 +20,14 @@
 
 
 
-**🚀 Demo**
+<h3>🚀 Demo:</h3>
 
 Check out the live demo hosted on Netlify:
 https://peyondfoodordering.netlify.app/
 
 
 
-**🛠️ Technologies Used**
+<h3>🛠️ Technologies Used</h3>
 
 **Frontend:** React, TypeScript
 
@@ -43,7 +41,7 @@ https://peyondfoodordering.netlify.app/
 
 
 
-**⚙️ Installation**
+<h3>⚙️ Installation</h3>
 
 Follow these steps to set up the project locally:
 
@@ -55,7 +53,7 @@ npm or yarn
 
 
 
-**Steps:**
+<h3>Steps:</h3>
 
 1. Clone the repository:
     git clone https://github.com/your-username/ordering-app.git  
@@ -71,19 +69,36 @@ npm or yarn
 4. Access the app at http://localhost:3000.
 
 
-**🛣️ Routes**
+<h3>🛣️ Routes</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Path</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>/</td>
+            <td>Home page with menu and features.</td>
+        </tr>
+        <tr>
+            <td>/cart</td>
+            <td>View and manage cart items.</td>
+        </tr>
+        <tr>
+            <td>/status</td>
+            <td>Real-time order tracking.</td>
+        </tr>
+        <tr>
+            <td>/bill</td>
+            <td>Bill generation for ordered app</td>
+        </tr>
+    </tbody>
+</table>
 
-/	  --->      Home page with menu and features.
 
-/cart	  --->  View and manage cart items.
-
-/status	 --->   Real-time order tracking.
-
-/bill   --->    Bill generation for ordered app
-
-
-
-**🖼️ Screenshots**
+<h3>🖼️ Screenshots</h3>
 
 **Menu Page:**	
 
@@ -112,17 +127,17 @@ npm or yarn
 
 
 
-**🛡️ Known Issues**
+<h3>🛡️ Known Issues</h3>
 
 Direct navigation to /cart or /status requires Netlify _redirects setup.
 
 Error handling for live updates can be improved.
 
 
-**📝 License**
+<h3>📝 License</h3>
 
 This project is licensed under the MIT License. See the LICENSE file for details.
 
-**🤝 Contributions**
+<h3>🤝 Contributions</h3>
 
 Contributions are welcome! Feel free to fork the repository and submit a pull request.
