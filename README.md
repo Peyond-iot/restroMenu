@@ -2,7 +2,8 @@
 
 **A sleek and intuitive application for managing food orders with real-time updates and a modern user interface.**
 
-![orederingApp-MadewithClipchamp-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/172a3d21-5467-47c8-9f26-8369a724854b)
+https://github.com/user-attachments/assets/4704b33e-7ef2-4c5e-81a9-7a61d85d311a
+
 
 
 <h3>📜 Features</h3>
