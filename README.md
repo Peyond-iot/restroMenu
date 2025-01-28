@@ -2,7 +2,10 @@
 
 **A sleek and intuitive application for managing food orders with real-time updates and a modern user interface.**
 
-https://github.com/user-attachments/assets/4704b33e-7ef2-4c5e-81a9-7a61d85d311a
+
+https://github.com/user-attachments/assets/1551a71b-7fba-4f99-8529-95da004f2840
+
+
 
 
 
